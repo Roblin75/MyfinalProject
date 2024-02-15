@@ -1,3 +1,5 @@
+<section>
+
 <cftry>
     <cfset addEditFunctions = createObject("addedit") />
     <div class="row">
@@ -31,3 +33,5 @@
     <cffunction name="sideNav">
         Side Nav
  </cffunction>
+
+</section>
