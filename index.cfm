@@ -5,8 +5,7 @@
 </head>
 <body>
 This is my Basic HTML
-<cfinclude template="addedit.cfc"/> 
-<cfinclude template="addedit.cfm"/> 
+
 <cfinclude template="header.cfm"/> 
 <cfinclude template="horizontalnav.cfm"/> 
 <main></main>

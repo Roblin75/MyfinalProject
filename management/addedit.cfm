@@ -14,3 +14,20 @@
     </cfoutput>
   </cfcatch>
 </cftry>
+<cffunction name="mainForm">
+    <cfoutput>
+        <form action="#cgi.script_name#?tool=addedit" method
+        ="post">
+        <label for="isbn13">ISBN13:</label>
+        <input type="text" id="isbn13" name="isbn13" valu
+        e="" placeholder="ISBN13" />
+
+        <label for=”title”>Book Title</label> 
+        <input type=”text” id="title" name=”title” placeholder=”BookTitle/>
+        <button type=”submit” class="btn btn-primary">Add Book</button>
+        </form>
+        </cfoutput>
+    </cffunction>
+    <cffunction name="sideNav">
+        Side Nav
+ </cffunction>
