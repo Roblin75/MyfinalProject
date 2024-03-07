@@ -2,8 +2,12 @@ component{
     function processForms( required struct formData ){
             if ( formData.keyExists( "isbn13" ) && formData.isbn13.len()==13 
                 && formData.title.len() > 0 ) {
+                    if(formdata.keyExists("uploadImage") && formData.uploadImage.len()){
+                       arguments.formData.image = uploadBookCover();
+                    }
                 var qs = new query( datasource = application.dsource );
-                
+
+
                 qs.setSQL("
                 IF NOT EXISTS( SELECT * FROM books WHERE isbn13=:isbn13)
                 INSERT INTO books (isbn13,title) VALUES (:isbn13,:title);
@@ -11,7 +15,8 @@ component{
                 title=:title,
                 weight=:weight,
                 year=:year,
-                pages=:pages
+                pages=:pages,
+                image= :image
                 WHERE isbn13=:isbn13
                 ");
 
@@ -29,16 +34,19 @@ component{
             
         qs.addParam(name="weight",CFSQLTYPE="CF_SQL_NUMERIC",
             value=formData.weight);
-            null = !isValid("numeric", formData.pages)
+            null = !isValid("numeric", formData.weight);
 
         qs.addParam(name="year",CFSQLTYPE="CF_SQL_NUMERIC",
             value=formData.year);
-            null = !isValid("numeric", formData.pages)
+            null = !isValid("numeric", formData.year);
 
         qs.addParam(name="pages",CFSQLTYPE="CF_SQL_NUMERIC",
             value=formData.pages);
-            null = !isValid("numeric", formData.pages)
-        
+            null = !isValid("numeric", formData.pages);
+
+        qs.addParam(name="image",CFSQLTYPE="CF_SQL_NVARCHAR",value=formData.image);
+       
+       
         
         qs.execute();
         }
@@ -56,6 +64,12 @@ component{
             qs.setSql("select* from publishers order by name");
                 return qs.execute().getResult();
             }
+
+    function uploadBookCover(){
+            var imageData = fileUpload(expandPath("../images/"),"uploadImage","*","makeUnique");
+           return imageData.serverFile;
+        }
+   
     }
         
                 
@@ -63,4 +77,3 @@ component{
 
 
  
-

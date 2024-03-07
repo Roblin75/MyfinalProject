@@ -1,11 +1,12 @@
 
 <cftry><cfdump var = "#form#"/>
+   
     
     <cfset addEditFunctions = createObject("addedit") />
     <cfset addEditFunctions.processForms(form)>
   
    
-    
+
     
     <div class="row">
     <div id="main" class="col-9">
@@ -33,11 +34,14 @@
         
 <cffunction name="mainForm">
     <cfset allPublishers = addEditFunctions.allPublishers() />
+
    
+  
     <cfdump var =  #allPublishers#/>
-    
+
     <cfoutput>
-                <form action="#cgi.script_name#?tool=addedit" method="post">
+                <form action="#cgi.script_name#?tool=addedit" method="post" enctype="multipart/form-data">
+                    
                     <div class="form-floating mb-3">
                 
                         <input type="text" id="isbn13" name="isbn13" value="" placeholder="ISBN13" class="form-control"/>
@@ -89,17 +93,36 @@
                         <label for="publisher">publisher: </label>
                         
                     </div>
-        
-                    <div class="form-floating mb-3">
-                        <input type="text" id="description" name="description" placeholder="description" class="form-control"/>
-                        <label for="description">description: </label>
+                    
+                    
+                        <label for="uploadImage">Upload Cover</label>
+                        <div class="input-group mb-3">
+                        <input type="file" id="uploadImage" name="uploadImage" class="form-control" />
+                        <input type="hidden" name="image" value="#trim(thisBookDetails.image[1])#" />
                     </div>
-
-                   
                  
-                    <button type=”submit” class="btn btn-primary" style= "width: 100%">Add Book</button>
-   
-    
+                 <button type=”submit” class="btn btn-primary" style= "width: 100%">Add Book</button>
+
+                 <div class="row">
+                    <div class="col">
+                    <label for="uploadImage">Upload Cover</label>
+                    <div class="input-group mb-3">
+                    <input type="file" id="uploadImage" name="uploadi
+                    mage" class="form-control" />
+                    <input type="hidden" name="image" value="#trim(thisBookDetails.image[1])#" />
+                    </div>
+                        </div>
+                        <div class="col">
+                    <cfif thisBookDetails.image[1].len() gt 0 >
+                    <img src="../images/#trim(thisBookDetails.image[1])#" style="width:200px" />
+                    </cfif>
+                    </div>
+                     </div>
+
+
+
+
+                </form>
            </cfoutput>
     </cffunction>
                      
@@ -112,8 +135,7 @@
         <cfoutput>
         <ul class="nav flex-column">
         <li class="nav-item">
-        <a href="#cgi.script_name#?tool=addedit&book=
-        new" class="nav-link">
+        <a href="#cgi.script_name#?tool=addedit&book=new" class="nav-link">
         New Book
         </a>
         </li>
