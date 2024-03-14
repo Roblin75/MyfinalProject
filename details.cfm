@@ -4,7 +4,8 @@
 <cfset bookinfo = bookstoreFunctions.obtainSearchResults(form.searchme)/>
 
 <cfif bookinfo.recordcount == 0> 
-    #noResults()# 
+    hello
+    #noResults()#
     <cfelseif bookinfo.recordcount == 1> 
     #oneResult()# 
     <cfelse> 

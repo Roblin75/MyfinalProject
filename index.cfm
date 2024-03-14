@@ -20,14 +20,13 @@
  </head>
  <body>
 
-
+<cfset bookstoreFunctions = createObject("bookstore") />
 
 <cfparam name="p" default="carousel" />
-<cfset bookstoreFunctions = createObject("bookstore") />
+
 
 <!--search-->
 <cfinclude template="header.cfm"/> 
-
 
 
 <cfinclude template="horizontalnav.cfm"/> 
