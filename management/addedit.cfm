@@ -1,15 +1,16 @@
-
-<cfparam name= "qterm"default=""/>
 <cftry>
-<cfparam name="book" default = ""/>  
+    
+   
+    <cfparam name="book" default = ""/>  
+    <cfparam name= "qterm" default="">
  
    
   
-    <cfdump var = "#form#"/>
+   <!--- <cfdump var = "#form#"/>--->
   
     
     <cfset addEditFunctions = createObject("addedit") />
-    <cfset addEditFunctions.processForms(form)>
+    <cfset addEditFunctions.processForms(form)/>
   
    
 
@@ -17,14 +18,18 @@
     <div class="row">
     <div id="main" class="col-9">
    
-        
-        <cfoutput> #mainForm()#</cfoutput>
-        
-        
+     
+        <cfif book neq "">
+            <cfoutput>#mainForm()#</cfoutput>
+        </cfif>
     </div>
+        
+        
+        
+    
 
     
-    <div id=”leftgutter” class="col-lg-3 order-first">
+    <div id="leftgutter" class="col-lg-3 order-first">
         <cfoutput> #sideNav()#</cfoutput>
         
   
@@ -39,18 +44,16 @@
 
         
 <cffunction name="mainForm">
-    <cfset allPublishers = addEditFunctions.allPublishers() />
     <cfset thisBookDetails = addEditFunctions.bookDetails(book)/>
+    <cfset allPublishers = addEditFunctions.allPublishers() />
     
-
-   
- 
-   <cfdump var =  #thisbookDetails#/>
-
-    <cfoutput>
-                <form action="#cgi.script_name#?tool=addedit&book = #book#" method="post" enctype="multipart/form-data">
-                    
+    <cfoutput>   
+        
+        <form action="#cgi.script_name#?tool=addedit&book = #book#&qterm =  #qterm#" method="post" enctype="multipart/form-data">
+       
                     <div class="form-floating mb-3">
+                    </div>
+                    
                 
                         <input type="text" id="isbn13" name="isbn13" value="#thisbookdetails.isbn13[1]#" placeholder="ISBN13" class="form-control"/>
                         <label for="isbn13">ISBN13:</label>
@@ -90,31 +93,33 @@
                         <input type="text" id="languages" name="languages" value="#thisbookdetails.languages[1]#"placeholder="languages" class="form-control"/>
                         <label for="languages">language: </label>
                     </div>
-        
+       
                     <div class="form-floating mb-3">
-                        <select id= "publisher" name ="publisher" value="#thisbookdetails.publisher[1]#"class="form-control"/>
-                        <option value = ""></option>
-                        <cfloop query = "allPublishers">
-                            <option value = "#Publisherid#">#name#</option>
+                        <select class="form-select" id="publisherId" name="publisherid" aria-label="Publisher Select Control">
+                        <!---<option> value="#id#" #id = thisBookDetails.publisher ? "selected" : ""#</option>--->
+                        <cfloop query="allPublishers">
+                        <option value="#id#">#name#</option>
                         </cfloop>
                         </select>
-                        <label for="publisher">publisher: </label>
-                        
-                    </div>
-                    <div class="col">
+                        <label for="publisher">Publisher</label>
+                        </div>
+                    
+                        <div class="col">
                    
                         <img src="../images/" style="width:200px" />
                         
                         </div>
                     <div class="row">
                         <div class="col">
+                            <label for="uploadImage">Upload Cover</label>
+                            <div class="form-floating mb-3">
                     
-                    
-                        <label for="uploadImage">Upload Cover</label>
+                       
                         <div class="input-group mb-3">
-                        <input type="file" id="uploadImage" name="uploadImage" class="form-control" />
-                        <input type="hidden" name="image" value="" />
+                        <input type="file" id="uploadImage" name="uploadimage" class="form-control" />
+                        <input type="hidden" name="image" value="#trim(thisBookDetails.Image[1])#" />
                     </div>
+                </div>
 
 
                     
@@ -132,64 +137,77 @@
                         .catch(error => {console.dir(error)});
                         </script>
                         </div>
-                 
+                    <div>
                  <button type=”submit” class="btn btn-primary" style= "width: 100%">Add Book</button>
 
                 
                         </div>
                        
-                     </div>
-
-
-
-
-                </form>
-           </cfoutput>
-</cffunction>
                      
-    
-    <cffunction name="sideNav">
-        
-        <cfset allBooks = addEditFunctions.sideNavBooks(qterm) />
-        
-        <div>
-        Book List
-        </div>
-        <cfoutput>
-            #findBookForm()#
-            </cfoutput>
-        <cfoutput>
-        <ul class="nav flex-column">
-        <li class="nav-item">
-        <a href="#cgi.script_name#?tool=addedit&book=new" class="nav-link">
-        New Book
-        </a>
-        </li>
 
-       <cfif qterm.len()==0>
-            No Search Term Entered
-            <cfelseif allBooks.recordcount==0>
-            No Results Found
-        <cfelse>
-        <cfloop query="allBooks">
-        <li class="nav-item">
-        <a href="#cgi.script_name#?tool=addedit&book=#isbn13#" class="nav-link">#trim(title)#</a>
-        </li>
+
+
+                   
+                </form>
+        
+            </cfoutput>
+
+    
+ 
+   
+</cffunction>
+<cffunction name="sideNav">
+    <cfset allBooks = addEditFunctions.sideNavBooks(qterm) />
+    <div>
+    Book List
+    </div>
+  
+    <cfoutput>
+        #findBookForm()#
+    <ul class="nav flex-column">
+    <li class="nav-item">
+        <a class="nav-link" href="#cgi.SCRIPT_NAME#?tool=addEdit&book=new">New Book</a>
+
+    </a>
+    </li>
+    <cfif qTerm.len() == 0>
+        No Search Term Entered
+    <cfelseif allbooks.recordcount ==0>    
+        No Results Found
+    <cfelse>
+        <cfloop query="allbooks">
+            <li class="nav-item">
+                <a class="nav-link" href="#cgi.SCRIPT_NAME#?tool=addEdit&book=#isbn13#&qTerm=#qTerm#">#trim(title)#</a>
+            </li>
         </cfloop>
-        </cfif>
-        </ul>
-        </cfoutput>
-    </cffunction>
+    </cfif>
+</ul>
+</cfoutput>
+</cffunction>
+
+
+
+ 
 
     <cffunction name="findBookForm">
         <cfoutput>
-            <form action="#cgi.script_name#?tool=#tool#" method="post">
-            <div class="form-floating mb-3">
-            <input type="text" id="qterm" name="qterm" class="form-control" value="#qterm#" placeholder="Enter a searc
-            h term to find a book to edit" />
-            <label for="qterm">Search Inventory </label>
-            </div>
-            </form>
+        <form action="#cgi.SCRIPT_NAME#?p=details" method=”post”>
+            
+        <div class="form-floating mb-3">
+        <input type="text" id="qterm" name="qterm" cl
+        ass="form-control" value="#qterm#" placeholder="Enter a searc
+        h term to find a book to edit" />
+        <div id = "row"></div>
+            <div id = "row">
+                <label for="qterm">Search Inventory </label>
+        </div>
+        </form>
         </cfoutput>
-    </cffunction>
-        
+        </cffunction>
+    
+                     
+    
+ <!---
+
+
+ --->
