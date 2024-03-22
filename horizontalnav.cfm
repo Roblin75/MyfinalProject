@@ -1,4 +1,4 @@
-string	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
         <img src="images/rdb.png" alt="Read Dees Books Logo"/>
     </a>
@@ -22,9 +22,18 @@ string	<nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <a class="nav-link" href="#">Events</a>
             </li>
         </ul>
+        <cfoutput>
         <form class="d-flex">
-            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <input  action = "#cgi.SCRIPT_NAME#? p= details method = "POST">
+            <input name ="search" input type="search" class = "form-control me-2" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
+            </cfoutput>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link"href="#">login</a>
+                </li>
+        </form>
     </div>
-</nav>
+
+
