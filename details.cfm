@@ -1,13 +1,13 @@
 
+details page
 
-
-
+ this is my details page
 <cfparam name="searchme" default=""/>
-<!---<cfdump var="#form#">--->
+
 <cfoutput>
-    <cfset bookinfo= bookstoreFunctions.obtainSearchResults(searchme)/>
-  <!---   <cfdump var = #bookinfo#/>
-   there are #bookinfo.recordcount# books in it--->
+     <cfset bookinfo= bookstoreFunctions.obtainSearchResults(searchme)/>
+     
+ there are #bookinfo.recordcount# books in it
 
 
 
@@ -19,8 +19,9 @@
     
 <cfelseif bookinfo.recordcount == 1> 
        
-         
+    
         #oneResult()#
+    
         
 <cfelse> 
         #manyResults()#
@@ -40,6 +41,7 @@
 
 </cffunction>
 <cffunction name= "oneResult">
+   
         
     <div class ="row">
     <div class ="col-6">
@@ -58,7 +60,15 @@
             <div class="container">
                 <div class="row">
                     <div class= "col">
-                    "there was one result please show details"</br></br>
+                    "there was #bookinfo.recordcount# please show details"</br></br>
+                    <ol class = "nav flex-column">
+                        <cfloop query= "bookinfo">
+                            <li class = "nav-item">
+                                <a class = "nav-link" href = "#cgi.SCRIPT_NAME#?p= details& searchme = #isbn13#">
+                                    #title#
+                                </a>
+                            </li>
+                        </cfloop>
                     </div>
                 </div>
                 <div class ="row">
@@ -121,27 +131,5 @@
     </cfoutput>
        
 </cffunction>
-           <!---
-        </div>
-        <ol class="nav flex-column">
-            4
-            Adding Search To Our Front Index Page
-           <cfoutput query=”bookinfo”>  
-           <li 
-           class="nav-item">
-            <a class="nav-link" href=”#cgi.script_name#?
-            p=details&searchme=#trim(isbn13)#”>
-            #trim(title)#
-            </a>
-            </li> 
-           </cfoutput> 
-           </ol>
-          </cfoutput>
-</cffunction>
 
-
-
-
-#bookinfo = bookstoreFunctions.obtainSearchResults(searchme)#
-<cfoutput>
 --->

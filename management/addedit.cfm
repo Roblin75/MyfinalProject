@@ -2,7 +2,7 @@
     
    
     <cfparam name="book" default = ""/>  
-    <cfparam name= "qterm" default="">
+    <cfparam name= "qterm" default=""/>
  
    
   
@@ -10,7 +10,7 @@
   
     
     <cfset addEditFunctions = createObject("addedit") />
-    <cfset addEditFunctions.processForms(form)/>
+    <cfset addEditFunctions.processForms(form)>
   
    
 
@@ -19,7 +19,7 @@
     <div id="main" class="col-9">
    
      
-        <cfif book neq "">
+        <cfif book.len() gt 0>
             <cfoutput>#mainForm()#</cfoutput>
         </cfif>
     </div>
@@ -44,13 +44,23 @@
 
         
 <cffunction name="mainForm">
-    <cfset thisBookDetails = addEditFunctions.bookDetails(book)/>
-    <cfset allPublishers = addEditFunctions.allPublishers() />
+    
+    <cfset var = allPublishers = addEditFunctions.allPublishers() />
+    <cfset var = thisBookDetails = addEditFunctions.bookDetails(book)/>
     
     <cfoutput>   
         
         <form action="#cgi.script_name#?tool=addedit&book = #book#&qterm =  #qterm#" method="post" enctype="multipart/form-data">
        
+                    <div class="form-floating mb-3">
+                    </div>
+
+                    <div class="form-floating mb-3">
+                    </div>
+                    <div class="form-floating mb-3">
+                    </div>
+                    <div class="form-floating mb-3">
+                    </div>
                     <div class="form-floating mb-3">
                     </div>
                     
@@ -96,7 +106,7 @@
        
                     <div class="form-floating mb-3">
                         <select class="form-select" id="publisherId" name="publisherid" aria-label="Publisher Select Control">
-                        <!---<option> value="#id#" #id = thisBookDetails.publisher ? "selected" : ""#</option>--->
+                     <!---   <option value="#id#" #id = thisBookDetails.publisherid ? "selected" : ""#</option>--->
                         <cfloop query="allPublishers">
                         <option value="#id#">#name#</option>
                         </cfloop>
@@ -104,25 +114,22 @@
                         <label for="publisher">Publisher</label>
                         </div>
                     
-                        <div class="col">
-                   
-                        <img src="../images/" style="width:200px" />
-                        
-                        </div>
+                      
+                       
                     <div class="row">
                         <div class="col">
                             <label for="uploadImage">Upload Cover</label>
-                            <div class="form-floating mb-3">
-                    
-                       
-                        <div class="input-group mb-3">
+                    <div class="input-group mb-3">
                         <input type="file" id="uploadImage" name="uploadimage" class="form-control" />
-                        <input type="hidden" name="image" value="#trim(thisBookDetails.Image[1])#" />
+                        <input type="hidden" name="image" value="#trim(thisBookDetails.image[1])#" />
                     </div>
                 </div>
-
-
-                    
+                <div class="col">
+                    <cfif thisBookDetails.image[1].len() gt 0>
+                        <img src="../images/#trim(thisBookDetails.image[1])#" style="width:200px" />
+                    </cfif>
+                </div>
+            </div>
 
                     <div class="form-floating mb-3">
                         <div>

@@ -2,11 +2,15 @@ component{
     
     <!---  writedump(formData);--->
     function processForms(required struct formData) {
-      if ( formData.keyExists( "isbn13" ) && formData.isbn13.len
-          ()==13 && formData.title.len() > 0) {
-          if(formData.keyExists("uploadImage") && formData.uploadImage.len() > 0){
-              arguments.image = uploadBookCover();
-          }
+       
+        if (formData.keyExists('isbn13') &&formData.isbn13.len() ==13 && formData.keyExists('title') && formData.title.len() > 0) {
+
+            if(formdata.keyExists("uploadImage") && formData.uploadImage.len()){
+                arguments.formData.image = uploadBookCover();
+            }
+
+            
+
       var qs = new query(datasource = application.dsource);
       qs.setSql("if NOT EXISTS( SELECT * FROM books WHERE isbn13=:isbn13)
       INSERT INTO books (isbn13,title) VALUES (:isbn13,:title);
@@ -83,16 +87,14 @@ component{
   }
 
   function sideNavBooks( qterm ){
-      if(qterm.len() ==0 ){
-      return queryNew("title");
-      } else {
+      
       var qs = new query(datasource = application.dsource);
       qs.setSql("select * from books where title like :qterm
       order by title");
       qs.addParam(name="qterm",value='%#qterm#%');
       return qs.execute().getResult();
       }
-      }
+    
   function allPublishers(){
           
           var qs = new query( datasource = application.dsource );
@@ -104,13 +106,19 @@ component{
           var imageData = fileUpload(expandPath("../images/"),"uploadImage","*","makeUnique");
          return imageData.serverFile;
       }
- 
-   function bookDetails(isbn13){
-          var qs = new query(datasource=application.dsource);
-          qs.setSql("select * from books where isbn13=:isbn13");
-          qs.addParam(name="isbn13",CFSQLTYPE="CF_SQL_NVARCHAR",value=arguments.isbn13);
-          return qs.execute().getResult();
-          }
-      }
 
+   function bookDetails(book){
+          var qs = new query(datasource=application.dsource);
+          qs.setSql("select * from books where isbn13=:isbn13 order by title");
+          qs.addParam(
+            name="isbn13",
+            CFSQLTYPE="CF_SQL_NVARCHAR",
+            value=trim(arguments.book)
+             null=formData.isbn13.len() !=13
+          
+         
+          return qs.execute().getResult();
+           
+      }
+    }
   

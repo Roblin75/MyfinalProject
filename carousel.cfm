@@ -6,23 +6,23 @@
     </div>
     <div class="carousel-inner">
         <div class="carousel-item active">
-            <img src="images/remarkable.jpg" class="d-block w-100 " alt="..."
+            <img src="images/giver.jpg" class="d-block w-100 " alt="..."
                  style="width:65% !important; margin-left:auto;margin-right:auto">
             <div class="carousel-caption d-none d-md-block">
-                <h5>Remarkably Bright Creaturess</h5>
-                <p>e</p>
+                <h5>Anne of Green Gables</h5>
+                <p>A Canadian Treasure</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="images/giver.jpg" class="d-block w-100" alt="..."
+            <img src="images/allquiet.jpg" class="d-block w-100" alt="..."
                  style="width:65% !important; margin-left:auto;margin-right:auto">
             <div class="carousel-caption d-none d-md-block">
-                <h5>The Giver</h5>
+                <h5>Amelia Bedelia</h5>
                 <p>Meet the most literal person alive.</p>
             </div>
         </div>
         <div class="carousel-item">
-            <img src="images/countofmonte.jpg" class="d-block w-100" alt="..."
+            <img src="images/countofMonte.jpg" class="d-block w-100" alt="..."
                  style="width:65% !important; margin-left:auto;margin-right:auto">
             <div class="carousel-caption d-none d-md-block">
                 <h5>Encyclopedia Brown</h5>

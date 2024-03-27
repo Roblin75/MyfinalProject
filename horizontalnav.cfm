@@ -23,17 +23,23 @@
             </li>
         </ul>
         <cfoutput>
-        <form class="d-flex">
-            <input  action = "#cgi.SCRIPT_NAME#? p= details method = "POST">
-            <input name ="search" input type="search" class = "form-control me-2" placeholder="Search" aria-label="Search">
+        <form class="d-flex" action= "#cgi.SCRIPT_NAME#?p=details" method = "post">
+            <input class="form-control me-2" name ="searchme" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
-            </cfoutput>
-            <ul class="navbar-nav mr-auto">
+    
+        <ul class="navbar-nav mr-auto">
+            <cfif session.user.isLoggedIn>
                 <li class="nav-item">
-                    <a class="nav-link"href="#">login</a>
-                </li>
-        </form>
+                <a class="nav-link" href="#Cgi.SCRIPT_NAME#?p=logoff">logout</a>
+
+            </li>
+        <cfelse>   
+            <li class="nav-item">
+                <a class="nav-link" href="#Cgi.SCRIPT_NAME#?p=login">login</a>
+        </li>
+    </cfif>
+    </ul>
+    </cfoutput>
     </div>
-
-
+</nav>
