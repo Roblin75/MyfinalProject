@@ -42,11 +42,15 @@
   </cfcatch>
 </cftry>
 
-        
+
 <cffunction name="mainForm">
+
     
-    <cfset var = allPublishers = addEditFunctions.allPublishers() />
+    
     <cfset var = thisBookDetails = addEditFunctions.bookDetails(book)/>
+    <cfset var = allPublishers = addEditFunctions.allPublishers()/> 
+    <cfset var = allGenres = addEditFunctions.allgenres() />
+    <cfset var = allGenresForThisBook = addEditFunctions.bookGenres(book)/>
     
     <cfoutput>   
         
@@ -144,21 +148,42 @@
                         .catch(error => {console.dir(error)});
                         </script>
                         </div>
-                    <div>
-                 <button type=”submit” class="btn btn-primary" style= "width: 100%">Add Book</button>
+                        <div>
+                            <h4>Genres</h4>
+                        <cfloop query = "allGenres">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="#id#" id="genre#id#" name="genre">
+                                <label class="form-check-label" for="genre#id#">
+                                  
+                                  #name#
+                                </label>
+                            </div>
+                        </cfloop>
+                        <cfloop query = "allGenresForThisBook">
+                               
+                               <script type = "text/javascript">
+                               try{
+                                    document.getElementById("genre#genreId#").checked=true;
+                               }catch(err){
+                               
+                               }   
+                               </script>
+                            </cfloop>    
+                    </div>
+        
+        
+                           
+                        
+                
+                    </cfoutput>
+                     <button type=”submit” class="btn btn-primary" style= "width: 100%">Add Book</button>
 
                 
                         </div>
                        
                      
-
-
-
-                   
-                </form>
-        
-            </cfoutput>
-
+             
+        </form>
     
  
    

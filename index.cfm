@@ -11,8 +11,9 @@
 <body>
 
     <cfparam name="p" default="carousel" />
-    <cfinclude template="stateinfo.cfm" />
     <cfset bookstoreFunctions = createObject("bookstore") />
+    <cfinclude template="stateinfo.cfm" />
+   
     <div id="wrapper" class="container">
         <header id = "topheader" class = "row" style = "text-align: = center">
             <cfinclude template="header.cfm" />
@@ -26,7 +27,7 @@
     
     <div id="horizontalnav" class="row">
         <cfinclude template="horizontalNav.cfm" />
-        <cfinclude template="navbar.cfm" />
+    <!---   <cfinclude template="navbar.cfm" />--->
         
        
     </div>

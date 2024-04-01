@@ -9,24 +9,24 @@
             <img src="images/giver.jpg" class="d-block w-100 " alt="..."
                  style="width:65% !important; margin-left:auto;margin-right:auto">
             <div class="carousel-caption d-none d-md-block">
-                <h5>Anne of Green Gables</h5>
-                <p>A Canadian Treasure</p>
+                <h5>The Giver</h5>
+                <p>A perfect society...or is it</p>
             </div>
         </div>
         <div class="carousel-item">
             <img src="images/allquiet.jpg" class="d-block w-100" alt="..."
                  style="width:65% !important; margin-left:auto;margin-right:auto">
             <div class="carousel-caption d-none d-md-block">
-                <h5>Amelia Bedelia</h5>
-                <p>Meet the most literal person alive.</p>
+                <h5>Alls Quiet on the Western Front</h5>
+                <p>A World War 1 story</p>
             </div>
         </div>
         <div class="carousel-item">
             <img src="images/countofMonte.jpg" class="d-block w-100" alt="..."
                  style="width:65% !important; margin-left:auto;margin-right:auto">
             <div class="carousel-caption d-none d-md-block">
-                <h5>Encyclopedia Brown</h5>
-                <p>Boy Detective.</p>
+                <h5>Count of Monte Cristo</h5>
+                <p>A story of Love and Revenge</p>
             </div>
         </div>
         <div class="carousel-item">

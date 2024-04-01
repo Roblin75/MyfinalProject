@@ -14,6 +14,7 @@
     <div class="container">
         <div id="navarea"> 
             <cfinclude template="navbar.cfm" />
+            <cfparam name="searchme" default=""/>
         </div>
         <div id="mainarea">
             <cfinclude template="#tool#.cfm" />

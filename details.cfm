@@ -1,13 +1,11 @@
 
-details page
-
- this is my details page
 <cfparam name="searchme" default=""/>
+<cfparam name = "genre" default = "">
 
 <cfoutput>
-     <cfset bookinfo= bookstoreFunctions.obtainSearchResults(searchme)/>
+     <cfset bookinfo= bookstoreFunctions.obtainSearchResults(searchme, genre)/>
      
- there are #bookinfo.recordcount# books in it
+ <!---there are #bookinfo.recordcount# books found--->
 
 
 
@@ -60,7 +58,7 @@ details page
             <div class="container">
                 <div class="row">
                     <div class= "col">
-                    "there was #bookinfo.recordcount# please show details"</br></br>
+                     #bookinfo.recordcount# record showing</br></br>
                     <ol class = "nav flex-column">
                         <cfloop query= "bookinfo">
                             <li class = "nav-item">
@@ -112,7 +110,8 @@ details page
     
     <div>
         <div>
-            there were #bookinfo.recordcount# found in the database. Here is a list
+            
+            #bookinfo.recordcount# records showing
         </div>
     <div>
         <ol class="nav flex-column">
@@ -126,10 +125,8 @@ details page
             </ol>
         </div>
     </div>
-            
-             
+       
     </cfoutput>
        
 </cffunction>
 
---->

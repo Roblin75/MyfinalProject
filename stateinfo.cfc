@@ -18,11 +18,21 @@ component{
 
         }
     }
-
-    function processNewAccount(formdata){
-        var returnMe={
-            success:False, message:""
+    function emailisUnique(email){
+        var qs = new query(datasource=application.dsource);
+        qs.setSql("select * from people where email=:email");
+        qs.addParam(name="email",value=arguments.email);
+        return qs.execute().getResult().recordcount == 0;
         }
+    function processNewAccount(formData){
+            
+            if(emailIsUnique(formData.email)){
+            } else {
+            return {success:false,
+            message:"That email is already in our system. Please
+            login"
+            };
+            }
         if (emailUnique(formdata.email)){
         
             var newid = createUUID();
@@ -100,31 +110,44 @@ component{
                         where email = :email and passwords.password=:password");
                         qs.addParam(name = "email", value = arguments.username);
                         qs.addParam(name = "password", value = hash(arguments.password, "SHA-512"));
-                        var results = qs.execute().getResult();
+                        var results= qs.execute().getResult();
+                        
+                        return "success";
                       
             }
 
 
 
 
+            function obtainUser(
+                isLoggedIn = false,
+                firstname="",
+                lastname="",
+                email="",
+                acctNumber="")
+               {
+                return {
+                isLoggedIn:arguments.isLoggedIn,
+                firstname:arguments.firstname,
+                lastname:arguments.lastname,
+                email:arguments.email,
+                acctNumber:arguments.acctNumber
+                };
+                }
 
-    }
-
-<!---
-            return {
-            isLoggedIn=arguments.isLoggedIn,
-            firstname:arguments.firstname,
-            lastname:arguments.lastname,
-            email:arguments.email,
-            acctNumber:arguments.acctNumber
-            };
-    }
-
-
-}
-    ---->
-
-
-
-
-
+                function addPassword(id, password){
+                    try {
+                    var qs = new query(datasource = application.dsource);
+                    qs.setSql("insert into passwords (personid, password)
+                    values (:personid, :password) ");
+                    qs.addParam(name = "personid", value = arguments.id);
+                    qs.addParam(name = "password", value = hash(arguments.password, "SHA-256"));
+                    qs.execute();
+                    return true;
+                    }
+                    catch(ary err){
+                    return false;
+                    }
+                    }
+            
+            }
